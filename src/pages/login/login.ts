@@ -1,3 +1,4 @@
+import { validation_messages } from './../../message/error.message';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
@@ -11,20 +12,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 export class LoginPage {
 
   authForm: FormGroup;
-  validation_messages = {
-    'email': [
-      { type: 'required', message: 'Email is required.' },
-      { type: 'minlength', message: 'Email must be at least 5 characters long.' },
-      // { type: 'maxlength', message: 'Email cannot be more than 25 characters long.' },
-      { type: 'pattern', message: 'Your Email must match valid email format.' },
-      // { type: 'validEmail', message: 'Your Email has already been taken.' }
-    ],
-    'password': [
-      { type: 'required', message: 'Password is required.' },
-      { type: 'minlength', message: 'Password must be at least 6 characters long.' },
-      { type: 'maxlength', message: 'Password cannot be more than 25 characters long.' }
-    ]
-  }
+  validation_messages=validation_messages;
 
   passwordType: string = 'password';
   passwordIcon: string = 'eye-off';
