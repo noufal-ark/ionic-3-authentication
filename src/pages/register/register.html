@@ -1,18 +1,84 @@
-<!--
-  Generated template for the RegisterPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>RegisterPage</ion-title>
+    <ion-title>
+      RegisterPage
+    </ion-title>
   </ion-navbar>
-
 </ion-header>
-
-
 <ion-content padding>
+  <ion-row justify-content-center>
+    <ion-img width="170" height="170" src="assets/imgs/app-icon.png"></ion-img>
+  </ion-row>
+  <form [formGroup]="authRegisterForm" (ngSubmit)="onSubmit(authRegisterForm.value)">
+    <!-- Person Name input -->
+    <ion-item>
+      <ion-label floating>Full Name</ion-label>
+      <ion-input formControlName="personName" type="text"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.personname">
+        <div class="error-message" *ngIf="authRegisterForm.get('personName').hasError(validation.type) && (authRegisterForm.get('personName').dirty || authRegisterForm.get('personName').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+    <!-- Email input -->
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input formControlName="email" type="email"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.email">
+        <div class="error-message" *ngIf="authRegisterForm.get('email').hasError(validation.type) && (authRegisterForm.get('email').dirty || authRegisterForm.get('email').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+    <!-- Mobile input -->
+    <ion-item>
+      <ion-label floating>Mobile Number</ion-label>
+      <ion-input formControlName="mobile" type="tel" [placeholder]="placeholderMobile" (focus)="onMobileFocus()" (focusout)="onMobileFocusOut()"
+        #focus3 (keyup)="formatMobileNumber(focus3)"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.mobile">
+        <div class="error-message" *ngIf="authRegisterForm.get('mobile').hasError(validation.type) && (authRegisterForm.get('mobile').dirty || authRegisterForm.get('mobile').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+    <!-- Password input -->
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input formControlName="password" [type]="passwordType" clearOnEdit="false"></ion-input>
+      <ion-icon item-end [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.password">
+        <div class="error-message" *ngIf="authRegisterForm.get('password').hasError(validation.type) && (authRegisterForm.get('password').dirty || authRegisterForm.get('password').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
 
+    <!--Conform Password input -->
+    <ion-item>
+      <ion-label floating>Confirm Password</ion-label>
+      <ion-input formControlName="confirmPassword" [type]="passwordType" clearOnEdit="false"></ion-input>
+      <ion-icon item-end [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.confirmpassword">
+        <div class="error-message" *ngIf="authRegisterForm.get('confirmPassword').hasError(validation.type) && (authRegisterForm.get('confirmPassword').dirty || authRegisterForm.get('confirmPassword').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+      <div class="error-message" *ngIf="authRegisterForm.hasError('mismatchedPasswords') && (authRegisterForm.get('confirmPassword').dirty || authRegisterForm.get('confirmPassword').touched)">
+        {{ PASSWORD_UNMATCH }}
+      </div>
+    </div>
+    <!-- Sign up button -->
+    <button ion-button full color="primary" [disabled]="!authRegisterForm.valid" style="margin-top: 20px;" type="submit">Sign up</button>
+  </form>
+  <button ion-button clear color="lightDark" style="text-transform: none;" float-right>Sign in here</button>
 </ion-content>
