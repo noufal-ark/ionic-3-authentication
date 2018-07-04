@@ -9,7 +9,7 @@
   <ion-row justify-content-center>
     <ion-img width="170" height="170" src="assets/imgs/app-icon.png"></ion-img>
   </ion-row>
-  <form [formGroup]="authForm" (ngSubmit)="onSubmit(authForm.value)">
+  <form [formGroup]="authForm" (ngSubmit)="loginUser(authForm.value)">
     <!-- Email input -->
     <ion-item>
       <ion-label floating>Email</ion-label>
@@ -36,13 +36,13 @@
       </ng-container>
     </div>
     <!-- Sign in button -->
-    <button ion-button full color="primary" [disabled]="!authForm.valid" style="margin-top: 20px;" type="submit">Sign in</button>
+    <button ion-button full color="primary" style="margin-top: 20px;" type="submit">Sign in</button>
   </form>
-  <button ion-button clear color="lightDark" style="text-transform: none;" float-left>Lost your password ?</button>
-  <button ion-button clear color="lightDark" style="text-transform: none;" float-right>Sign up here</button>
+  <button ion-button clear color="lightDark" style="text-transform: none;" float-left (click)="goToForgot()">Lost your password ?</button>
+  <button ion-button clear color="lightDark" style="text-transform: none;" float-right (click)="goToRegister()">Sign up here</button>
 
   <ion-item text-center padding>
-      <ion-label>OR</ion-label>
+    <ion-label>OR</ion-label>
   </ion-item>
 
   <button ion-button color="facebookButton" full (click)="doFacebook()">

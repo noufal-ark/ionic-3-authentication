@@ -5,6 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
+import { FirebaseAuthProvider } from '../providers/firebase-auth/firebase-auth';
+import { LoadingProvider } from '../providers/loading/loading';
 @NgModule({
   declarations: [
     MyApp
@@ -20,7 +22,9 @@ import { MyApp } from './app.component';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    FirebaseAuthProvider,
+    LoadingProvider
   ]
 })
 export class AppModule {}

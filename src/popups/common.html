@@ -1,0 +1,10 @@
+<ion-row padding class="row parentinfo-popup welcome-msg">
+    <ion-col col-12="">
+        <h2 class="dark-header">{{heading}} </h2>
+        <p [innerHTML]='body' class="light-body">
+        </p>
+        <div padding class="login-area ">
+            <button type="submit" tappable (click)="close()" ion-button color="light" round block class="light-btn">{{button}}</button>
+        </div>
+    </ion-col>
+</ion-row>
