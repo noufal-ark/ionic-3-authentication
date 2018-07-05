@@ -19,4 +19,8 @@ export class HomePage {
   goToLogin() {
     this.navCtrl.push('LoginPage');
   }
+
+  doGoogle(){
+    
+  }
 }
