@@ -20,6 +20,6 @@ export class DashboardPage {
 
   logout() {
     this.authProvider.logoutUser();
-    this.navCtrl.setRoot('LoginPage');
+    this.navCtrl.setRoot('HomePage');
   }
 }

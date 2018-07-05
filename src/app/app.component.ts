@@ -31,7 +31,7 @@ export class MyApp {
   checkUserAuthentication() {
     const unsubscribe = firebase.auth().onAuthStateChanged(user => {
       if (!user) {
-        this.rootPage = 'LoginPage';
+        this.rootPage = 'HomePage';
         unsubscribe();
       } else {
         this.rootPage = 'DashboardPage';
