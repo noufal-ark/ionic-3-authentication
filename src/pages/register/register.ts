@@ -2,7 +2,7 @@ import { LoadingProvider } from './../../providers/loading/loading';
 import { FirebaseAuthProvider } from './../../providers/firebase-auth/firebase-auth';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { validation_messages, PASSWORD_UNMATCH } from './../../message/error.message';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 
 @IonicPage()
@@ -11,6 +11,9 @@ import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-an
   templateUrl: 'register.html',
 })
 export class RegisterPage {
+
+  @ViewChild('focusEmail') myEmail;
+  
   authRegisterForm: FormGroup;
   validation_messages = validation_messages;
   PASSWORD_UNMATCH = PASSWORD_UNMATCH;
@@ -146,6 +149,7 @@ export class RegisterPage {
           case ('auth/email-already-in-use'):
             err_header = 'UNABLE TO REGISTER';
             err_body = 'The email already in use. Please login with your email.';
+            this.myEmail.setFocus();
             break;
           case ('auth/invalid-email'):
             err_header = 'INVALID EMAIL';
@@ -176,4 +180,5 @@ export class RegisterPage {
   goToLogin() {
     this.navCtrl.pop();
   }
+
 }

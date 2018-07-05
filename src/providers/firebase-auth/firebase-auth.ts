@@ -34,4 +34,12 @@ export class FirebaseAuthProvider {
   registerUser(email, password) {
     return firebase.auth().createUserWithEmailAndPassword(email, password);
   }
+  /**
+  * This method is used to reset password with firebase inbuilt method.
+  * @param email email id of user used for register in account
+  * @param actionCodeSettings actionCodeSettings is optional for register in account
+  */
+  forgotPassword(email) {
+    return firebase.auth().sendPasswordResetEmail(email);
+  }
 }
