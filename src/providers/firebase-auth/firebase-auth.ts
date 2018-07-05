@@ -25,4 +25,13 @@ export class FirebaseAuthProvider {
     // localStorage.setItem('userId', '');
     return firebase.auth().signOut();
   }
+  /**
+     * This method is used for register user account using username and password.
+     * And  
+     * @param email email id of user
+     * @param password password of user
+     */
+  registerUser(email, password) {
+    return firebase.auth().createUserWithEmailAndPassword(email, password);
+  }
 }

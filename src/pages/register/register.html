@@ -9,7 +9,7 @@
   <ion-row justify-content-center>
     <ion-img width="170" height="170" src="assets/imgs/app-icon.png"></ion-img>
   </ion-row>
-  <form [formGroup]="authRegisterForm" (ngSubmit)="onSubmit(authRegisterForm.value)">
+  <form [formGroup]="authRegisterForm" (ngSubmit)="registerUser(authRegisterForm.value)">
     <!-- Person Name input -->
     <ion-item>
       <ion-label floating>Full Name</ion-label>
@@ -37,7 +37,7 @@
     <!-- Mobile input -->
     <ion-item>
       <ion-label floating>Mobile Number</ion-label>
-      <ion-input formControlName="mobile" type="tel" [placeholder]="placeholderMobile" (focus)="onMobileFocus()" (focusout)="onMobileFocusOut()"
+      <ion-input formControlName="mobile" type="tel" [placeholder]="placeholderMobile" (ionFocus)="onMobileFocus()" (focusout)="onMobileFocusOut()"
         #focus3 (keyup)="formatMobileNumber(focus3)"></ion-input>
     </ion-item>
     <div class="validation-errors">
@@ -78,7 +78,7 @@
       </div>
     </div>
     <!-- Sign up button -->
-    <button ion-button full color="primary" [disabled]="!authRegisterForm.valid" style="margin-top: 20px;" type="submit">Sign up</button>
+    <button ion-button full color="primary" style="margin-top: 20px;" type="submit">Sign up</button>
   </form>
-  <button ion-button clear color="lightDark" style="text-transform: none;" float-right>Sign in here</button>
+  <button ion-button clear color="lightDark" style="text-transform: none;" float-right (click)="goToLogin()">Sign in here</button>
 </ion-content>

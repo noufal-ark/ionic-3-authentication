@@ -1,7 +1,9 @@
+import { LoadingProvider } from './../../providers/loading/loading';
+import { FirebaseAuthProvider } from './../../providers/firebase-auth/firebase-auth';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { validation_messages, PASSWORD_UNMATCH } from './../../message/error.message';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -25,7 +27,10 @@ export class RegisterPage {
 
 
   constructor(public navCtrl: NavController,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private firebaseAuthProvider: FirebaseAuthProvider,
+    private loadingCtrl: LoadingProvider,
+    private popoverCtrl: PopoverController) {
     this.authRegisterForm = formBuilder.group({
       email: ['', Validators.compose(
         [Validators.required,
@@ -94,5 +99,81 @@ export class RegisterPage {
         };
       }
     }
+  }
+
+
+  /**
+   * Marks all controls in a form group as touched
+   * @param formGroup - The group to caress..hah
+   */
+  private markFormGroupTouched(formGroup: FormGroup) {
+    (<any>Object).values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control.controls) {
+        control.controls.forEach(c => this.markFormGroupTouched(c));
+      }
+    });
+  }
+
+  registerUser() {
+    if (!this.authRegisterForm.valid) {
+      console.log(`Form is not valid yet, current value: `);
+      console.log(this.authRegisterForm.value);
+
+      this.markFormGroupTouched(this.authRegisterForm)
+    } else {
+      this.loadingCtrl.presentWithGif1();
+
+      console.log(this.authRegisterForm.value);
+
+      const fullName = this.authRegisterForm.value.personName;
+      const email = this.authRegisterForm.value.email;
+      const mobile = this.authRegisterForm.value.mobile;
+      const password = this.authRegisterForm.value.password;
+
+      this.firebaseAuthProvider.registerUser(email, password).then(data => {
+        console.log(data);
+        this.loadingCtrl.dismiss();
+        this.navCtrl.setRoot('DashboardPage');
+      }).catch(err => {
+        console.log(err);
+
+        const err_code = err.code;
+        let err_header = '';
+        let err_body = '';
+        switch (err_code) {
+          case ('auth/email-already-in-use'):
+            err_header = 'UNABLE TO REGISTER';
+            err_body = 'The email already in use. Please login with your email.';
+            break;
+          case ('auth/invalid-email'):
+            err_header = 'INVALID EMAIL';
+            err_body = 'The email you entered is invalid email format. Please enter valid email.';
+            break;
+          case ('auth/operation-not-allowed'):
+            err_header = 'USER DISABLED';
+            err_body = 'The user account email/password has been disabled by an administrator. Please contact to administrator.';
+            break;
+          case ('auth/weak-password'):
+            err_header = 'WEAK PASSWORD';
+            err_body = 'The password you entered is too weak password format. Please enter strong password.';
+            break;
+          default:
+            err_header = 'UNABLE TO REGISTER';
+            err_body = 'The email or password that you typed is incorrect. Please try again.';
+
+        }
+
+        this.loadingCtrl.dismiss();
+        const popover = this.popoverCtrl.create('CommonPopupPage',
+          { heading: err_header, body: err_body });
+        popover.present();
+      });
+    }
+  }
+
+  goToLogin() {
+    this.navCtrl.pop();
   }
 }
