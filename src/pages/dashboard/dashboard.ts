@@ -19,8 +19,7 @@ export class DashboardPage {
   }
 
   logout() {
-    this.authProvider.logoutUser().finally(() => {
-      this.navCtrl.setRoot('LoginPage');
-    });
+    this.authProvider.logoutUser();
+    this.navCtrl.setRoot('LoginPage');
   }
 }

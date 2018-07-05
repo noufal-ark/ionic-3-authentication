@@ -50,6 +50,9 @@ export class ForgotPasswordPage {
       this.firebaseAuthProvider.forgotPassword(email).then(data => {
         console.log(data);
         this.loadingCtrl.dismiss();
+        const popover = this.popoverCtrl.create('CommonPopupPage',
+          { heading: 'CHECK YOUR MAIL', body: 'Reset password link sent to your mail id.' });
+        popover.present();
         this.navCtrl.pop();
       }).catch(err => {
         console.log(err);
