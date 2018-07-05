@@ -1,7 +1,9 @@
-
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar hideBackButton>
+    <button ion-button (click)='logout()' float-right>
+      <ion-icon ios="ios-log-out" md="md-log-out"></ion-icon>
+    </button>
     <ion-title>Dashboard</ion-title>
   </ion-navbar>
 
@@ -9,9 +11,9 @@
 
 
 <ion-content padding text-center>
-<h2 padding>Comming soon...</h2>
+  <h2 padding>Comming soon...</h2>
 
-<ion-row justify-content-center>
-    <ion-img  src="assets/imgs/under-construction.png"></ion-img>
+  <ion-row justify-content-center>
+    <ion-img src="assets/imgs/under-construction.png"></ion-img>
   </ion-row>
 </ion-content>

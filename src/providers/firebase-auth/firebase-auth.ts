@@ -18,4 +18,11 @@ export class FirebaseAuthProvider {
   loginUser(email: string, password: string) {
     return firebase.auth().signInWithEmailAndPassword(email, password);
   }
+  /**
+   * This method is used to logout user from firebase authentication.
+   */
+  logoutUser() {
+    // localStorage.setItem('userId', '');
+    return firebase.auth().signOut();
+  }
 }
